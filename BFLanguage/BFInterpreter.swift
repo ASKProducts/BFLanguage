@@ -23,9 +23,12 @@ class BFInterpreter{
     
     let validChars = Array("+-><.,[]MB") //M prints the memory
     
-    init(memoryLength: Int = 300, maxValue: Int = 256) {
+    let maxInstructions: Int? //maximum number of instructions to be performed before quitting, or nil if no maximum
+    
+    init(memoryLength: Int = 300, maxValue: Int = 256, maxInstructions: Int? = 1_000_000) {
         self.memoryLength = memoryLength
         self.maxValue = maxValue
+        self.maxInstructions = maxInstructions
         
         refresh()
     }
@@ -54,6 +57,7 @@ class BFInterpreter{
         }
         guard openIndicies.isEmpty else { return openIndicies.first }
         
+        var instructionsPerformed = 0
         while i < instructions.count{
             switch instructions[i]{
             case "+":
@@ -78,12 +82,16 @@ class BFInterpreter{
             case "]":
                 if memory[location] != 0 { i = matchingBraces[i] }
             case "M":
-                printMemory()
+                print("Memory at instruction \(instructionsPerformed), index \(i):")
+                printInstruction(code: code, index: i)
+                printMemory(message: nil)
             default:
                 break
             }
             
             i += 1
+            instructionsPerformed += 1
+            if maxInstructions != nil && instructionsPerformed == maxInstructions! { break }
         }
         
         return nil
@@ -97,12 +105,12 @@ class BFInterpreter{
     }
     
     //print length amount of cells, or highestCellTouched+1 if nil, and ensure that at least minCells cells are printed
-    func printMemory(length: Int? = nil, minCells: Int = 5) {
+    func printMemory(length: Int? = nil, minCells: Int = 5, message: String? = "Memory:") {
         let cellWidth = String(maxValue).count
         var numCells = length ?? highestCellTouched + 1
         if numCells < minCells { numCells = minCells }
         
-        print("Memory:")
+        if let message = message { print(message) }
         
         print(" ", terminator: "")
         for i in 0..<numCells{
@@ -135,5 +143,12 @@ class BFInterpreter{
             print(String(repeating: " ", count: cellWidth % 2 == 0 ? cellWidth/2 - 1 : cellWidth/2), terminator: " ")
         }
         print()
+    }
+    
+    func printInstruction(code: String, index: Int){
+        let instructions = Array(code).filter{validChars.contains($0)}
+        print(instructions.map{String($0)}.joined())
+        print(String(repeating: " ", count: index), terminator: "")
+        print("^")
     }
 }

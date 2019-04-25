@@ -8,5 +8,10 @@
 
 import Foundation
 
-let interpreter = BFInterpreter()
-runBFREPL(interpreter: interpreter, numerical: true)
+let interpreter = BFInterpreter(memoryLength: 100,
+                                maxValue: 256,
+                                maxInstructions: 1_000_000)
+
+runBFREPL(interpreter: interpreter,
+          numerical: true,
+          autoDisplayMemory: true)
