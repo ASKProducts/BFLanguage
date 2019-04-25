@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BFLanguage/BFInterpreter.swift"
+            timestampString = "577870257.728336"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
+            landmarkName = "run(code:input:output:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BFLanguage.BFInterpreter.run(code: Swift.String, input: (BFLanguage.BFInterpreter) -&gt; Swift.Int, output: (BFLanguage.BFInterpreter, Swift.Int) -&gt; ()) -&gt; Swift.Optional&lt;Swift.Int&gt;"
+                  moduleName = "BFLanguage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/AKaufer/Documents/BFLanguage/BFLanguage/BFInterpreter.swift"
+                  timestampString = "577868444.2551661"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "56"
+                  endingLineNumber = "56"
+                  offsetFromSymbolStart = "2164">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BFLanguage.BFInterpreter.run(code: Swift.String, input: (BFLanguage.BFInterpreter) -&gt; Swift.Int, output: (BFLanguage.BFInterpreter, Swift.Int) -&gt; ()) -&gt; Swift.Optional&lt;Swift.Int&gt;"
+                  moduleName = "BFLanguage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/AKaufer/Documents/BFLanguage/BFLanguage/BFInterpreter.swift"
+                  timestampString = "577868444.257359"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "56"
+                  endingLineNumber = "56"
+                  offsetFromSymbolStart = "2208">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BFLanguage.BFInterpreter.run(code: Swift.String, input: (BFLanguage.BFInterpreter) -&gt; Swift.Int, output: (BFLanguage.BFInterpreter, Swift.Int) -&gt; ()) -&gt; Swift.Optional&lt;Swift.Int&gt;"
+                  moduleName = "BFLanguage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/AKaufer/Documents/BFLanguage/BFLanguage/BFInterpreter.swift"
+                  timestampString = "577868444.259497"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "56"
+                  endingLineNumber = "56"
+                  offsetFromSymbolStart = "2879">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BFLanguage.BFInterpreter.run(code: Swift.String, input: (BFLanguage.BFInterpreter) -&gt; Swift.Int, output: (BFLanguage.BFInterpreter, Swift.Int) -&gt; ()) -&gt; Swift.Optional&lt;Swift.Int&gt;"
+                  moduleName = "BFLanguage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/AKaufer/Documents/BFLanguage/BFLanguage/BFInterpreter.swift"
+                  timestampString = "577868444.261463"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "56"
+                  endingLineNumber = "56"
+                  offsetFromSymbolStart = "3557">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BFLanguage.BFInterpreter.run(code: Swift.String, input: (BFLanguage.BFInterpreter) -&gt; Swift.Int, output: (BFLanguage.BFInterpreter, Swift.Int) -&gt; ()) -&gt; Swift.Optional&lt;Swift.Int&gt;"
+                  moduleName = "BFLanguage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/AKaufer/Documents/BFLanguage/BFLanguage/BFInterpreter.swift"
+                  timestampString = "577868444.263364"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "56"
+                  endingLineNumber = "56"
+                  offsetFromSymbolStart = "4123">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BFLanguage.BFInterpreter.run(code: Swift.String, input: (BFLanguage.BFInterpreter) -&gt; Swift.Int, output: (BFLanguage.BFInterpreter, Swift.Int) -&gt; ()) -&gt; Swift.Optional&lt;Swift.Int&gt;"
+                  moduleName = "BFLanguage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/AKaufer/Documents/BFLanguage/BFLanguage/BFInterpreter.swift"
+                  timestampString = "577868444.265236"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "56"
+                  endingLineNumber = "56"
+                  offsetFromSymbolStart = "4530">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BFLanguage.BFInterpreter.run(code: Swift.String, input: (BFLanguage.BFInterpreter) -&gt; Swift.Int, output: (BFLanguage.BFInterpreter, Swift.Int) -&gt; ()) -&gt; Swift.Optional&lt;Swift.Int&gt;"
+                  moduleName = "BFLanguage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/AKaufer/Documents/BFLanguage/BFLanguage/BFInterpreter.swift"
+                  timestampString = "577868444.267247"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "56"
+                  endingLineNumber = "56"
+                  offsetFromSymbolStart = "4826">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BFLanguage.BFInterpreter.run(code: Swift.String, input: (BFLanguage.BFInterpreter) -&gt; Swift.Int, output: (BFLanguage.BFInterpreter, Swift.Int) -&gt; ()) -&gt; Swift.Optional&lt;Swift.Int&gt;"
+                  moduleName = "BFLanguage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/AKaufer/Documents/BFLanguage/BFLanguage/BFInterpreter.swift"
+                  timestampString = "577868444.268945"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "56"
+                  endingLineNumber = "56"
+                  offsetFromSymbolStart = "5203">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BFLanguage.BFInterpreter.run(code: Swift.String, input: (BFLanguage.BFInterpreter) -&gt; Swift.Int, output: (BFLanguage.BFInterpreter, Swift.Int) -&gt; ()) -&gt; Swift.Optional&lt;Swift.Int&gt;"
+                  moduleName = "BFLanguage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/AKaufer/Documents/BFLanguage/BFLanguage/BFInterpreter.swift"
+                  timestampString = "577868444.2706259"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "56"
+                  endingLineNumber = "56"
+                  offsetFromSymbolStart = "5547">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BFLanguage/BFInterpreter.swift"
+            timestampString = "577870257.728431"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "84"
+            endingLineNumber = "84"
+            landmarkName = "run(code:input:output:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BFLanguage/BFInterpreter.swift"
+            timestampString = "577870257.728508"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
+            landmarkName = "run(code:input:output:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BFLanguage/BFInterpreter.swift"
+            timestampString = "577870257.728569"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
+            landmarkName = "printMemory(length:minCells:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BFLanguage/BFInterpreter.swift"
+            timestampString = "577870257.728616"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
+            landmarkName = "run(code:input:output:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BFLanguage.BFInterpreter.run(code: Swift.String, input: (BFLanguage.BFInterpreter) -&gt; Swift.Int, output: (BFLanguage.BFInterpreter, Swift.Int) -&gt; ()) -&gt; Swift.Optional&lt;Swift.Int&gt;"
+                  moduleName = "BFLanguage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/AKaufer/Documents/BFLanguage/BFLanguage/BFInterpreter.swift"
+                  timestampString = "577869218.436461"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42"
+                  offsetFromSymbolStart = "151">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Character) -&gt; Swift.Bool in BFLanguage.BFInterpreter.run(code: Swift.String, input: (BFLanguage.BFInterpreter) -&gt; Swift.Int, output: (BFLanguage.BFInterpreter, Swift.Int) -&gt; ()) -&gt; Swift.Optional&lt;Swift.Int&gt;"
+                  moduleName = "BFLanguage"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/AKaufer/Documents/BFLanguage/BFLanguage/BFInterpreter.swift"
+                  timestampString = "577869218.439122"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42"
+                  offsetFromSymbolStart = "37">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BFLanguage/BFInterpreter.swift"
+            timestampString = "577870257.728657"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
+            landmarkName = "run(code:input:output:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BFLanguage/BFInterpreter.swift"
+            timestampString = "577870257.728695"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
+            landmarkName = "run(code:input:output:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BFLanguage/BFInterpreter.swift"
+            timestampString = "577870257.72873"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
+            landmarkName = "run(code:input:output:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
