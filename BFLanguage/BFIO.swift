@@ -23,7 +23,7 @@ func readNonemptyLine() -> String {
 }
 
 var stdinNumericalInputBuffer: [Int] = []
-func stdinNumericalInputHandler(interpreter: BFInterpreter) -> Int{
+let stdinNumericalInputHandler: BFInputHandler = {(interpreter: BFInterpreter) -> Int in
     if !stdinNumericalInputBuffer.isEmpty {
         return stdinNumericalInputBuffer.removeFirst()
     }
@@ -34,7 +34,7 @@ func stdinNumericalInputHandler(interpreter: BFInterpreter) -> Int{
 }
 
 var stdinCharacterInputBuffer: [Int] = []
-func stdinCharacterInputHandler(interpreter: BFInterpreter) -> Int {
+let stdinCharacterInputHandler: BFInputHandler = {(interpreter: BFInterpreter) -> Int in
     if !stdinCharacterInputBuffer.isEmpty {
         return stdinCharacterInputBuffer.removeFirst()
     }
@@ -44,11 +44,11 @@ func stdinCharacterInputHandler(interpreter: BFInterpreter) -> Int {
     return stdinCharacterInputBuffer.removeFirst()
 }
 
-func stdoutNumericalOutputHandler(interpreter: BFInterpreter, output: Int){
-    print(output, terminator: "")
+let stdoutNumericalOutputHandler: BFOutputHandler = {(interpreter: BFInterpreter, output: Int) in
+    print(output, terminator: " ")
 }
 
-func stdoutCharacterOutputHandler(interpreter: BFInterpreter, output: Int){
+let stdoutCharacterOutputHandler: BFOutputHandler = {(interpreter: BFInterpreter, output: Int) in
     print(Character(UnicodeScalar(output)!), terminator: "")
 }
 

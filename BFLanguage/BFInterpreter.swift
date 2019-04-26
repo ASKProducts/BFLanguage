@@ -21,7 +21,7 @@ class BFInterpreter{
     
     var highestCellTouched: Int = 0
     
-    let validChars = Array("+-><.,[]MB") //M prints the memory
+    static let validChars = Array("+-><.,[]MB") //M prints the memory, B prints the memory and the location in code
     
     let maxInstructions: Int? //maximum number of instructions to be performed before quitting, or nil if no maximum
     
@@ -42,7 +42,7 @@ class BFInterpreter{
     //returns the index of an error, or nil if there was none
     func run(code: String, input: BFInputHandler, output: BFOutputHandler) -> Int?{
         var i: Int = 0
-        let instructions = Array(code).filter{validChars.contains($0)}
+        let instructions = Array(code).filter{BFInterpreter.validChars.contains($0)}
         
         var matchingBraces: [Int] = [Int](repeating: 0, count: instructions.count)
         var openIndicies: [Int] = []
@@ -76,15 +76,19 @@ class BFInterpreter{
             case ".":
                 output(self, memory[location])
             case ",":
-                memory[location] = input(self)
+                let num = input(self)
+                if num >= 0 { memory[location] = num % maxValue }
+                else{ memory[location] = maxValue - ( (-num) % maxValue ) }
             case "[":
                 if memory[location] == 0 { i = matchingBraces[i] }
             case "]":
                 if memory[location] != 0 { i = matchingBraces[i] }
             case "M":
-                print("Memory at instruction \(instructionsPerformed), index \(i):")
+                printMemory()
+            case "B":
+                print("Stopped at instruction \(instructionsPerformed), index \(i):")
                 printInstruction(code: code, index: i)
-                printMemory(message: nil)
+                printMemory()
             default:
                 break
             }
@@ -145,10 +149,12 @@ class BFInterpreter{
         print()
     }
     
+
     func printInstruction(code: String, index: Int){
-        let instructions = Array(code).filter{validChars.contains($0)}
+        let instructions = Array(code).filter{BFInterpreter.validChars.contains($0)}
         print(instructions.map{String($0)}.joined())
         print(String(repeating: " ", count: index), terminator: "")
         print("^")
     }
+    
 }

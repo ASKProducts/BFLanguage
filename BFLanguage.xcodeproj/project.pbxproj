@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		57ABD9922271CE9300D520E9 /* BFProgram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57ABD9912271CE9300D520E9 /* BFProgram.swift */; };
+		57ABD9942272872800D520E9 /* BFRegister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57ABD9932272872800D520E9 /* BFRegister.swift */; };
+		57ABD9972272942300D520E9 /* Squares.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57ABD9962272942300D520E9 /* Squares.swift */; };
+		57ABD9992272957C00D520E9 /* Fibonacci.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57ABD9982272957C00D520E9 /* Fibonacci.swift */; };
+		57ABD99C2272996600D520E9 /* Factorial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57ABD99B2272996600D520E9 /* Factorial.swift */; };
 		57CFAB59227110B60043C182 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CFAB58227110B60043C182 /* main.swift */; };
 		57CFAB60227110F60043C182 /* BFInterpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CFAB5F227110F60043C182 /* BFInterpreter.swift */; };
 		57CFAB622271114D0043C182 /* BFIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CFAB612271114D0043C182 /* BFIO.swift */; };
@@ -26,6 +31,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		57ABD9912271CE9300D520E9 /* BFProgram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BFProgram.swift; sourceTree = "<group>"; };
+		57ABD9932272872800D520E9 /* BFRegister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BFRegister.swift; sourceTree = "<group>"; };
+		57ABD9962272942300D520E9 /* Squares.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Squares.swift; path = ../Squares.swift; sourceTree = "<group>"; };
+		57ABD9982272957C00D520E9 /* Fibonacci.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Fibonacci.swift; path = ../Fibonacci.swift; sourceTree = "<group>"; };
+		57ABD99B2272996600D520E9 /* Factorial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factorial.swift; sourceTree = "<group>"; };
 		57CFAB55227110B60043C182 /* BFLanguage */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = BFLanguage; sourceTree = BUILT_PRODUCTS_DIR; };
 		57CFAB58227110B60043C182 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		57CFAB5F227110F60043C182 /* BFInterpreter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BFInterpreter.swift; sourceTree = "<group>"; };
@@ -44,6 +54,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		57ABD99A227296F200D520E9 /* Programs */ = {
+			isa = PBXGroup;
+			children = (
+				57ABD9962272942300D520E9 /* Squares.swift */,
+				57ABD9982272957C00D520E9 /* Fibonacci.swift */,
+				57ABD99B2272996600D520E9 /* Factorial.swift */,
+			);
+			path = Programs;
+			sourceTree = "<group>";
+		};
 		57CFAB4C227110B60043C182 = {
 			isa = PBXGroup;
 			children = (
@@ -67,6 +87,9 @@
 				57CFAB632271934B0043C182 /* BFREPL.swift */,
 				57CFAB612271114D0043C182 /* BFIO.swift */,
 				57CFAB5F227110F60043C182 /* BFInterpreter.swift */,
+				57ABD9912271CE9300D520E9 /* BFProgram.swift */,
+				57ABD9932272872800D520E9 /* BFRegister.swift */,
+				57ABD99A227296F200D520E9 /* Programs */,
 			);
 			path = BFLanguage;
 			sourceTree = "<group>";
@@ -128,10 +151,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57ABD9992272957C00D520E9 /* Fibonacci.swift in Sources */,
 				57CFAB622271114D0043C182 /* BFIO.swift in Sources */,
+				57ABD9922271CE9300D520E9 /* BFProgram.swift in Sources */,
+				57ABD99C2272996600D520E9 /* Factorial.swift in Sources */,
 				57CFAB60227110F60043C182 /* BFInterpreter.swift in Sources */,
 				57CFAB642271934B0043C182 /* BFREPL.swift in Sources */,
+				57ABD9942272872800D520E9 /* BFRegister.swift in Sources */,
 				57CFAB59227110B60043C182 /* main.swift in Sources */,
+				57ABD9972272942300D520E9 /* Squares.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

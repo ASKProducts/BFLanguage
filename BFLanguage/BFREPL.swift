@@ -27,13 +27,13 @@ func runBFREPL(interpreter: BFInterpreter,
             if stdinNumericalInputBuffer.isEmpty {
                 print("Input: ", terminator: "")
             }
-            return stdinNumericalInputHandler(interpreter: $0)
+            return stdinNumericalInputHandler($0)
         }
         else{
             if stdinCharacterInputBuffer.isEmpty {
                 print("Input: ", terminator: "")
             }
-            return stdinCharacterInputHandler(interpreter: $0)
+            return stdinCharacterInputHandler($0)
         }
 
     }
@@ -41,8 +41,8 @@ func runBFREPL(interpreter: BFInterpreter,
     var didOutput = false
     let outputHandler: BFOutputHandler = {
         didOutput = true
-        if(numerical) { return stdoutNumericalOutputHandler(interpreter: $0, output: $1) }
-        else { return stdoutCharacterOutputHandler(interpreter: $0, output: $1) }
+        if(numerical) { return stdoutNumericalOutputHandler($0, $1) }
+        else { return stdoutCharacterOutputHandler($0, $1) }
     }
     
     while true {
@@ -54,7 +54,10 @@ func runBFREPL(interpreter: BFInterpreter,
         if(autoDisplayMemory) { interpreter.printMemory() }
         
         print("Code: ", terminator: "")
-        var code = readLine()!
+ 
+        guard var code = readLine() else{
+            break
+        }
         
         if ["quit", "q"].contains(code.lowercased()) { break }
         if ["clear", "c"].contains(code.lowercased()) {
