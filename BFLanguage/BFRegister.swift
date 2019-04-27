@@ -8,7 +8,8 @@
 
 import Foundation
 
-class BFRegister{
+class BFRegister: CustomStringConvertible{
+    
     static func === (lhs: BFRegister, rhs: BFRegister) -> Bool {
         return lhs.location == rhs.location
     }
@@ -27,6 +28,10 @@ class BFRegister{
         self.location = location
         self.program = program
         self.name = name
+    }
+    
+    var description: String {
+        return "(\(name), loc: \(location), cleared: \(cleared))"
     }
     
 }
@@ -56,6 +61,7 @@ extension BFRegister{
         return diff
     }
     
+    
     static func *(a: BFRegister, b: BFRegister) -> BFRegister{
         let p = a.program
         let product = p.newRegister("(\(a.name) * \(b.name))")
@@ -65,9 +71,38 @@ extension BFRegister{
     static func *(a: BFRegister, b: Int) -> BFRegister {
         let p = a.program
         let product = p.newRegister("(\(a.name) * \(b))")
-        p.add(register: a, into: product)
+        p.copy(register: a, into: product)
         p.multiply(register: a, by: b)
         return product
+    }
+    
+    
+    static func /(a: BFRegister, b: BFRegister) -> BFRegister {
+        let p = a.program
+        let quotient = p.newRegister("(\(a.name) / \(b.name))")
+        p.computeMod(a: a, b: b, result: quotient)
+        return quotient
+    }
+    static func /(a: BFRegister, b: Int) -> BFRegister {
+        let p = a.program
+        let quotient = p.newRegister("(\(a.name) / \(b))")
+        p.copy(register: a, into: quotient)
+        p.divide(register: quotient, by: b)
+        return quotient
+    }
+    
+    static func %(a: BFRegister, b: BFRegister) -> BFRegister {
+        let p = a.program
+        let mod = p.newRegister("(\(a.name) % \(b.name))")
+        p.computeMod(a: a, b: b, result: mod)
+        return mod
+    }
+    static func %(a: BFRegister, b: Int) -> BFRegister {
+        let p = a.program
+        let mod = p.newRegister("(\(a.name) % \(b))")
+        p.copy(register: a, into: mod)
+        p.mod(a: mod, b: b)
+        return mod
     }
     
     static prefix func ! (reg: BFRegister) -> BFRegister {
@@ -101,6 +136,8 @@ extension BFRegister{
         return reg
     }
     static func != (lhs: BFRegister, rhs: Int) -> BFRegister {
+        if rhs == 0 { return lhs }
+        
         let reg = (lhs + (-rhs))
         reg.name = "(\(lhs.name) != \(rhs))"
         return reg
@@ -114,6 +151,15 @@ extension BFRegister{
         }
         return result
     }
+    static func > (lhs: BFRegister, rhs: Int) -> BFRegister {
+        let p = lhs.program
+        let result = p.newRegister("(\(lhs.name) > \(rhs))")
+        p.ifGreater(a: lhs, b: rhs) {
+            p.increment(register: result)
+        }
+        return result
+    }
+    
     
     static func >= (lhs: BFRegister, rhs: BFRegister) -> BFRegister {
         let p = lhs.program
@@ -123,6 +169,15 @@ extension BFRegister{
         }
         return result
     }
+    static func >= (lhs: BFRegister, rhs: Int) -> BFRegister {
+        let p = lhs.program
+        let result = p.newRegister("(\(lhs.name) >= \(rhs))")
+        p.ifGreaterOrEqual(a: lhs, b: rhs) {
+            p.increment(register: result)
+        }
+        return result
+    }
+    
     
     static func < (lhs: BFRegister, rhs: BFRegister) -> BFRegister {
         return (rhs > lhs)
@@ -131,15 +186,15 @@ extension BFRegister{
     static func <= (lhs: BFRegister, rhs: BFRegister) -> BFRegister {
         return (rhs >= lhs)
     }
+    
+    
 }
 
 //assignment operations
 extension BFRegister {
     static func &= (lhs: BFRegister, rhs: ExpressionBlock){
         let p = lhs.program
-        p.registerScope {
-            p.copy(register: rhs(), into: lhs)
-        }
+        p.copy(register: p.unwrap(rhs), into: lhs)
     }
     static func &= (lhs: BFRegister, rhs: BFRegister){
         lhs.program.copy(register: rhs, into: lhs)
@@ -158,9 +213,7 @@ extension BFRegister {
     }
     static func += (lhs: BFRegister, rhs: ExpressionBlock){
         let p = lhs.program
-        p.registerScope {
-            p.add(register: rhs(), into: lhs)
-        }
+        p.add(register: p.unwrap(rhs), into: lhs)
     }
     
     static func -= (lhs: BFRegister, rhs: Int){
@@ -171,9 +224,7 @@ extension BFRegister {
     }
     static func -= (lhs: BFRegister, rhs: ExpressionBlock){
         let p = lhs.program
-        p.registerScope {
-            p.subtract(register: rhs(), from: lhs)
-        }
+        p.subtract(register: p.unwrap(rhs), from: lhs)
     }
     
     static func *= (lhs: BFRegister, rhs: Int){
@@ -184,9 +235,31 @@ extension BFRegister {
     }
     static func *= (lhs: BFRegister, rhs: ExpressionBlock){
         let p = lhs.program
-        p.registerScope {
-            p.multiply(register: lhs, by: rhs())
-        }
+        p.multiply(register: lhs, by: p.unwrap(rhs))
     }
+    
+    static func /= (lhs: BFRegister, rhs: Int){
+        lhs.program.divide(register: lhs, by: rhs)
+    }
+    static func /= (lhs: BFRegister, rhs: BFRegister){
+        lhs.program.divide(register: lhs, by: rhs)
+    }
+    static func /= (lhs: BFRegister, rhs: ExpressionBlock){
+        let p = lhs.program
+        p.divide(register: lhs, by: p.unwrap(rhs))
+    }
+    
+    static func %= (lhs: BFRegister, rhs: Int){
+        lhs.program.mod(a: lhs, b: rhs)
+    }
+    static func %= (lhs: BFRegister, rhs: BFRegister){
+        lhs.program.mod(a: lhs, b: rhs)
+    }
+    static func %= (lhs: BFRegister, rhs: ExpressionBlock){
+        let p = lhs.program
+        p.mod(a: lhs, b: p.unwrap(rhs))
+    }
+    
+    
     
 }

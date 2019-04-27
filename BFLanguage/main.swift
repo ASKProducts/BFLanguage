@@ -31,27 +31,18 @@ case .REPL:
     
 case .Program:
     let p = BFProgram(includeComments: false)
+    //p.start()
     
-    let a = p.getInput()
-    let b = p.getInput()
+    p.load_Primes()
     
-    let quot = p.newRegister("quot")
-    
-    p._while({a >= b}) {
-        a -= b
-        quot += 1
-    }
-    
-    p.output(quot)
-    p.output(a)
-    
+    //p.end()
     
     print(p.code)
     //print(p.registerLog)
     
     //TODO: if/else, for loop
     
-    let interpreter = BFInterpreter()
+    let interpreter = BFInterpreter(maxInstructions: nil)
     _ = interpreter.run(code: p.code,
                         input: stdinNumericalInputHandler,
                         output: stdoutNumericalOutputHandler)

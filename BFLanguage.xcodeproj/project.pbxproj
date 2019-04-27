@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		572917082273FCA8000D4553 /* Primes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572917072273FCA7000D4553 /* Primes.swift */; };
 		57ABD9922271CE9300D520E9 /* BFProgram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57ABD9912271CE9300D520E9 /* BFProgram.swift */; };
 		57ABD9942272872800D520E9 /* BFRegister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57ABD9932272872800D520E9 /* BFRegister.swift */; };
 		57ABD9972272942300D520E9 /* Squares.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57ABD9962272942300D520E9 /* Squares.swift */; };
@@ -31,6 +32,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		572917072273FCA7000D4553 /* Primes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Primes.swift; sourceTree = "<group>"; };
 		57ABD9912271CE9300D520E9 /* BFProgram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BFProgram.swift; sourceTree = "<group>"; };
 		57ABD9932272872800D520E9 /* BFRegister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BFRegister.swift; sourceTree = "<group>"; };
 		57ABD9962272942300D520E9 /* Squares.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Squares.swift; path = ../Squares.swift; sourceTree = "<group>"; };
@@ -60,6 +62,7 @@
 				57ABD9962272942300D520E9 /* Squares.swift */,
 				57ABD9982272957C00D520E9 /* Fibonacci.swift */,
 				57ABD99B2272996600D520E9 /* Factorial.swift */,
+				572917072273FCA7000D4553 /* Primes.swift */,
 			);
 			path = Programs;
 			sourceTree = "<group>";
@@ -154,6 +157,7 @@
 				57ABD9992272957C00D520E9 /* Fibonacci.swift in Sources */,
 				57CFAB622271114D0043C182 /* BFIO.swift in Sources */,
 				57ABD9922271CE9300D520E9 /* BFProgram.swift in Sources */,
+				572917082273FCA8000D4553 /* Primes.swift in Sources */,
 				57ABD99C2272996600D520E9 /* Factorial.swift in Sources */,
 				57CFAB60227110F60043C182 /* BFInterpreter.swift in Sources */,
 				57CFAB642271934B0043C182 /* BFREPL.swift in Sources */,

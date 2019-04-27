@@ -23,7 +23,11 @@ class BFProgram{
     var registerFreeList: [Bool] = []
     var location: Int = 0
     
+    //registerScopes[i] consists of all registers initialized in scope i
     var registerScopes: [[BFRegister]] = [[]] //registerScopes[0] is the global scope
+    
+    //usedRegisterScopes[i] consists of all registers used in scope i
+    var usedRegisterScopes: [[BFRegister]] = [[]]
     
     var registerLog: String = ""
     
@@ -31,7 +35,7 @@ class BFProgram{
     
     let includeComments: Bool
     
-    init(numRegisters: Int = 10, includeComments: Bool = true) {
+    init(numRegisters: Int = 100, includeComments: Bool = true) {
         self.numRegisters = numRegisters
         registerFreeList = [Bool](repeating: true, count: numRegisters)
         self.includeComments = includeComments
@@ -41,9 +45,12 @@ class BFProgram{
         code = ""
         location = 0
         registerScopes = [[]]
+        usedRegisterScopes = [[]]
         registerLog = ""
     }
-    func end(){ }
+    func end(){
+        registerLog += "\nProgram End. Remaining scopes: \(registerScopes)"
+    }
     
     func increment(by: Int = 1){
         if by > 0 { code += String(repeating: "+", count: by) }
@@ -101,6 +108,8 @@ extension BFProgram {
         }
         fatalError("Out of free registers")
     }
+    
+    //scopesBack should never be used by the user
     func newRegister(_ name: String = "", _ initialValue: Int = 0) -> BFRegister {
         let loc = firstFreeRegisterLocation()
         registerFreeList[loc] = false
@@ -114,6 +123,20 @@ extension BFProgram {
         registerLog += "Created \(reg.name) in \(reg.location), scope \(registerScopes.count - 1)\n"
         return reg
     }
+    
+    func newRegister(_ initialValue: Int) -> BFRegister{
+        return newRegister("", initialValue)
+    }
+    
+    func pushBackScope(register: BFRegister){
+        let scopeLevel = (0..<registerScopes.count).filter{registerScopes[$0].contains{ $0 === register }}.last!
+        registerScopes[scopeLevel].removeAll(where: {$0 === register})
+        registerScopes[scopeLevel-1].append(register)
+        
+        registerLog += "Register \(register.name) pushed to scope \(scopeLevel-1)\n"
+    }
+    
+    
     
 
     func free(register: BFRegister){
@@ -132,11 +155,19 @@ extension BFProgram {
     
     func openRegisterScope(){
         registerScopes.append([])
+        usedRegisterScopes.append([])
     }
     func closeRegisterScope(){
         guard registerScopes.count > 1 else{
             fatalError("Attempted to close global scope.")
         }
+        
+        let usedRegs = usedRegisterScopes.last!
+        for reg in usedRegs{
+            reg.cleared = false
+        }
+        usedRegisterScopes.removeLast()
+        
         let regs = registerScopes.last!
         for reg in regs{
             free(register: reg)
@@ -152,6 +183,9 @@ extension BFProgram {
     func shift(to reg: BFRegister){
         guard !registerFreeList[reg.location] else{
             fatalError("Attempted to shift to a free register")
+        }
+        if !usedRegisterScopes[usedRegisterScopes.count - 1].contains(where: {$0 === reg}){
+            usedRegisterScopes[usedRegisterScopes.count - 1].append(reg)
         }
         shift(to: reg.location)
     }
@@ -192,8 +226,8 @@ extension BFProgram {
     }
     
     //creates a new register
-    func getInput() -> BFRegister{
-        let reg = newRegister("input()")
+    func getInput(_ name: String = "input()") -> BFRegister{
+        let reg = newRegister(name)
         input(into: reg)
         return reg
     }
@@ -234,12 +268,22 @@ extension BFProgram{
         register.cleared = true
     }
     
+    func iterateDown(register: BFRegister, decrementAtStart: Bool = false, contents: CodeBlock){
+        whileNonzero(register: register) {
+            if decrementAtStart { decrement(register: register) }
+            contents()
+            if !decrementAtStart { decrement(register: register) }
+        }
+    }
+    
     func iterateDown(register: BFRegister, contents: CodeBlock){
         whileNonzero(register: register) {
             contents()
             decrement(register: register)
         }
     }
+    
+    
     
     func destructiveIfNonzero(register: BFRegister, contents: CodeBlock){
         whileNonzero(register: register) {
@@ -333,6 +377,11 @@ extension BFProgram{
         free(register: tmpa)
         free(register: tmpb)
     }
+    func ifGreater(a: BFRegister, b: Int, contents: CodeBlock){
+        let bReg = newRegister("(bReg ifGreater(\(a.name), \(b)))", b)
+        ifGreater(a: a, b: bReg, contents: contents)
+        free(register: bReg)
+    }
     
     
     func destructiveIfGreaterOrEqual(a: BFRegister, b: BFRegister, contents: CodeBlock){
@@ -351,29 +400,48 @@ extension BFProgram{
         free(register: tmpa)
         free(register: tmpb)
     }
+    func ifGreaterOrEqual(a: BFRegister, b: Int, contents: CodeBlock){
+        let bReg = newRegister("(bReg ifGreaterOrEqual(\(a.name), \(b)))", b)
+        ifGreaterOrEqual(a: a, b: bReg, contents: contents)
+        free(register: bReg)
+    }
     
-    func _if(_ condition: ExpressionBlock, contents: CodeBlock){
+    //uwraps the expression, such that registers created in the expression other than the return value are freed
+    //this is done by opening a new scope, but forcing the return value register into the previous scope
+    func unwrap(_ expr: ExpressionBlock) -> BFRegister {
+        var reg: BFRegister!
         registerScope {
-            let condReg = condition()
-            
-            addLineBreak()
-            addComment("if(\(condReg.name)):")
-            indentLevel += 1
-            addLineBreak()
-            
-            ifNonzero(register: condReg, contents: {
-                contents()
-            })
-            
-            indentLevel -= 1
-            addLineBreak()
+            reg = expr()
+            if registerScopes.last!.contains(where: {$0 === reg}){
+                pushBackScope(register: reg)
+            }
         }
+        return reg
+    }
+    
+    
+    func _if(_ condition: ExpressionBlock, _ contents: CodeBlock){
+        let condReg = unwrap(condition)
+        
+        addLineBreak()
+        addComment("if(\(condReg.name)):")
+        indentLevel += 1
+        addLineBreak()
+        
+        ifNonzero(register: condReg, contents: {
+            contents()
+        })
+        
+        indentLevel -= 1
+        addLineBreak()
     }
     
     func _while(_ condition: ExpressionBlock, contents: CodeBlock){
-        let c = condition()
+        /*let c = condition()
         let condReg = newRegister(c.name)
-        condReg &= {c}
+        condReg &= {c}*/
+        
+        let condReg = unwrap(condition)
         
         whileNonzero(register: condReg, contents: {
             addLineBreak()
@@ -386,7 +454,7 @@ extension BFProgram{
             addLineBreak()
             addComment("recheck(\(condReg.name)):")
             addLineBreak()
-            condReg &= {condition()}
+            copy(register: unwrap(condition), into: condReg)
             
             indentLevel -= 1
             addLineBreak()
@@ -481,17 +549,105 @@ extension BFProgram{
         multiply(register: result, by: b)
     }
     
-    
-    func divide(register a: BFRegister, by b: BFRegister){
-        let tmpa = newRegister("(tmpa divide(\(a.name), \(b.name)))")
-        copy(register: a, into: tmpa)
-        clear(register: a)
-        whileNonzero(register: tmpa) {
-            
+    //a=a%b, b=a/b
+    func destructiveModDiv(a: BFRegister, b: BFRegister){
+        let tmp = newRegister("(tmp divide(\(a.name), \(b.name)))", 0);
+        transfer(register: b, into: tmp)
+        whileNonzero(register: tmp/**/) {
+            let elseChecker = newRegister("(elseChecker divide(\(a.name), \(b.name)))", 1)
+            ifGreaterOrEqual(a: a, b: tmp){
+                subtract(register: tmp, from: a)
+                increment(register: b)
+                decrement(register: elseChecker)
+            }
+            destructiveIfNonzero(register: elseChecker){
+                clear(register: tmp)
+            }
         }
-        free(register: tmpa)
+        free(register: tmp)
+        
     }
     
+    //a = a mod b, b=b
+    func mod(a: BFRegister, b: BFRegister){
+        let loopChecker = newRegister("(loopChecker divide(\(a.name), \(b.name)))", 1)
+        whileNonzero(register: loopChecker) {
+            decrement(register: loopChecker)
+            ifGreaterOrEqual(a: a, b: b){
+                subtract(register: b, from: a)
+                increment(register: loopChecker)
+            }
+        }
+        free(register: loopChecker)
+    }
+    func mod(a: BFRegister, b: Int){
+        let bReg = newRegister("(bReg divide(\(a.name), \(b)))", b)
+        let loopChecker = newRegister("(loopChecker divide(\(a.name), \(b)))", 1)
+        whileNonzero(register: loopChecker) {
+            decrement(register: loopChecker)
+            ifGreaterOrEqual(a: a, b: bReg){
+                decrement(register: a, by: b)
+                increment(register: loopChecker)
+            }
+        }
+        free(register: bReg)
+        free(register: loopChecker)
+    }
+    
+    func computeMod(a: BFRegister, b: BFRegister, result: BFRegister){
+        copy(register: a, into: result)
+        mod(a: result, b: b)
+    }
+    
+    // a = a/b, b=b
+    func divide(register a: BFRegister, by b: BFRegister){
+        let tmpa = newRegister("(tmpa divide(\(a.name), \(b.name)))")
+        let keepLooping = newRegister("(keepLooping divide(\(a.name), \(b.name)))", 1)
+        copy(register: a, into: tmpa)
+        clear(register: a)
+        whileNonzero(register: keepLooping) {
+            ifGreater(a: b, b: tmpa){
+                clear(register: keepLooping)
+                decrement(register: a)
+            }
+            increment(register: a)
+            subtract(register: b, from: tmpa)
+        }
+        free(register: tmpa)
+        free(register: keepLooping)
+    }
+    
+    func divide(register a: BFRegister, by b: Int){
+        let bReg = newRegister("(bReg divide(\(a.name), \(b)))", b)
+        let tmpa = newRegister("(tmpa divide(\(a.name), \(b)))")
+        let keepLooping = newRegister("(keepLooping divide(\(a.name), \(b)))", 1)
+        copy(register: a, into: tmpa)
+        clear(register: a)
+        whileNonzero(register: keepLooping) {
+            ifGreater(a: bReg, b: tmpa){
+                clear(register: keepLooping)
+                decrement(register: a)
+            }
+            increment(register: a)
+            decrement(register: tmpa, by: b)
+        }
+        free(register: tmpa)
+        free(register: keepLooping)
+        free(register: bReg)
+    }
+    
+    
+    
+    func computeQuotient(a: BFRegister, b: BFRegister, result: BFRegister){
+        copy(register: a, into: result)
+        divide(register: result, by: b)
+    }
+    
+    func computeDivMod(a: BFRegister, b: BFRegister, quotResult: BFRegister, modResult: BFRegister){
+        copy(register: a, into: modResult)
+        copy(register: b, into: quotResult)
+        destructiveModDiv(a: modResult, b: quotResult)
+    }
     
 }
 
